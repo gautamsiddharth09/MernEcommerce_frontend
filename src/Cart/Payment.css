@@ -1,0 +1,62 @@
+.payment-container {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.payment-container > * {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.payment-go-back,
+.payment-btn {
+  text-decoration: none;
+}
+
+.payment-go-back {
+  background: #ffd400;
+  color: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid white;
+  padding: 0.7rem 1.5rem;
+ 
+}
+
+.payment-go-back:hover {
+  background: #ffea00;
+  transform: translateY(-2px);
+}
+
+.payment-btn {
+  background-color: #2e7d32;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: medium;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid white;
+  padding: 0.7rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.payment-btn:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .payment-container {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}

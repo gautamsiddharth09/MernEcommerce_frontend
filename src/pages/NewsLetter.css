@@ -1,0 +1,88 @@
+.newsletter {
+  width: 70%;
+  min-height: 40vh;
+  margin: auto;
+  padding: 40px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: linear-gradient(180deg, #ff6a2b 0%, #faddc4 60%);
+  border-radius: 20px;
+  text-align: center;
+}
+
+/* Heading */
+.newsletter h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #2b2b2b;
+  background: none;
+}
+
+/* Subtitle */
+.newsletter p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 10px;
+  background:none;
+}
+
+/* Email input */
+.subscribe {
+  width: 420px;
+  height: 55px;
+  padding: 0 25px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Button */
+.btnSubscribe {
+  width: 200px;
+  height: 55px;
+  border-radius: 30px;
+  border: 2px solid white;
+  background: #ffd400;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #ffea00;
+  transform: translateY(-2px);
+}
+
+/* Input focus effect */
+.subscribe:focus {
+  box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.4);
+}
+
+
+/* responsive */
+@media (max-width: 768px) {
+  .newsletter {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .newsletter h1 {
+    font-size: 34px;
+  }
+
+  .subscribe,
+  .btn {
+    width: 100%;
+  }
+}
+
+
+
+

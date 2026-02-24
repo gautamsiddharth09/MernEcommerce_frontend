@@ -1,0 +1,157 @@
+
+.update-product-wrapper {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.update-product-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #2C2C2C;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+
+.update-product-form {
+  width: 100%;
+  max-width: 700px;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+.update-product-form label {
+  font-weight: 500;
+  color: #2C2C2C;
+  margin-top: 10px;
+}
+
+
+.update-product-input,
+.update-product-textarea,
+.update-product-select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #E5D3C5;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.update-product-input:focus,
+.update-product-textarea:focus,
+.update-product-select:focus {
+  border-color: #FF8C42;
+  box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.2);
+}
+
+
+.update-product-textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+
+.update-product-file-wrapper {
+  margin-top: 5px;
+}
+
+.update-product-file-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px dashed #E5D3C5;
+  cursor: pointer;
+}
+
+
+.update-product-preview-wrapper,
+.update-product-old-images-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.update-product-preview-image,
+.update-product-old-image {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #E5D3C5;
+  transition: transform 0.3s ease;
+}
+
+.update-product-preview-image:hover,
+.update-product-old-image:hover {
+  transform: scale(1.05);
+}
+
+
+.update-product-submit-btn {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background-color: #FF8C42;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.update-product-submit-btn:hover {
+  background-color: #e9772f;
+  transform: translateY(-2px);
+}
+
+.update-product-submit-btn:active {
+  transform: scale(0.98);
+}
+
+
+@media (max-width: 768px) {
+  .update-product-form {
+    padding: 25px;
+  }
+
+  .update-product-title {
+    font-size: 26px;
+  }
+
+  .update-product-preview-image,
+  .update-product-old-image {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+@media (max-width: 480px) {
+  .update-product-wrapper {
+    padding: 20px 15px;
+  }
+
+  .update-product-form {
+    padding: 20px;
+  }
+
+  .update-product-title {
+    font-size: 22px;
+  }
+
+  .update-product-submit-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

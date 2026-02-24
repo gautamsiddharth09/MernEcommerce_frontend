@@ -1,0 +1,53 @@
+.no-product-content {
+  min-height: 71vh;
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Icon / Image */
+.no-products-icon {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.no-products-icon img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+/* Title */
+.no-products-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+/* Message */
+.no-products-message {
+  max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

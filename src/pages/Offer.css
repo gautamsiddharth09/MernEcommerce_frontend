@@ -1,0 +1,160 @@
+.offer {
+  width: 65%;
+  min-height: 60vh; 
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 20px;
+  padding: 40px 140px;
+  background: linear-gradient(180deg, #FF6A2B 0%, #FFF6EC 60%);
+  border-radius: 20px;
+}
+
+/* LEFT CONTENT */
+.offer-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: none;
+}
+
+.offer-left h1 {
+  color: #171717;
+  font-size: 64px; /* reduced for better scaling */
+  font-weight: 700;
+  line-height: 1.1;
+  background: none;
+}
+
+.offer-left p {
+  color: #171717;
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 15px;
+  background: none;
+  width: 400px;
+}
+
+
+ .offer-left button{
+  width: 250px;
+  height: 50px;
+  border-radius: 35px;
+   background: #ffd400;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 30px;
+   transition: all 0.3s ease;
+  cursor: pointer;
+}
+ .offer-left button:hover{
+  background: #ffea00;
+  transform: translateY(-5px);
+}
+
+.offer-right {
+  background: none;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.offer-right img {
+  width: 320px;
+  background: none;
+
+}
+
+/* TABLET (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .offer {
+    width: 85%;
+    padding: 40px 60px;
+    gap: 30px;
+  }
+
+  .offer-left h1 {
+    font-size: 48px;
+  }
+
+  .offer-left p {
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .offer-right img {
+    width: 260px;
+  }
+}
+
+/* ---------- MOBILE (max-width: 768px) ---------- */
+@media (max-width: 768px) {
+  .offer {
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 25px;
+  }
+
+  .offer-left {
+    align-items: center;
+  }
+
+  .offer-left h1 {
+    font-size: 38px;
+  }
+
+  .offer-left p {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .offer-left button {
+    width: 200px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .offer-right img {
+    width: 280px;
+    /* margin-top: 5px; */
+  }
+}
+
+/* SMALL MOBILE (max-width: 480px) */
+@media (max-width: 480px) {
+  .offer {
+    padding: 25px 15px;
+    margin: 5px;
+    
+    
+  }
+
+  .offer-left h1 {
+    font-size: 30px;
+  }
+
+  .offer-left p {
+    font-size: 14px;
+  }
+
+  .offer-left button {
+    width: 180px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .offer-right{
+   margin: auto;
+  }
+
+  .offer-right img {
+    width: 200px;
+  }
+}
+
+
+
+

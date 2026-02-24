@@ -1,0 +1,151 @@
+.image-slider-container {
+  position: relative;
+  width: 100%;
+  height: 639px;
+  overflow: hidden;
+}
+
+.slider-images {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.slider-item {
+  min-width: 100%;
+  height: 100%;
+}
+
+.slider-item img {
+  width: 100%;
+  height: 639px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.slider-item:nth-child(2) img {
+  object-position: center;
+}
+
+.slider-item:nth-child(5) img {
+  object-position: center;
+}
+
+ .slider-item:nth-child(4) img {
+    object-position: center;
+    object-fit: cover;
+    height: 650px;
+  }
+
+.slider-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  display: flex;
+  gap: 0.5rem;
+  background: none;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/*  TABLET ( 768px) */
+@media (max-width: 768px) {
+  .image-slider-container {
+    height: 450px;
+  }
+
+  .slider-item img {
+    height: 450px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .slider-item:nth-child(3) img {
+    object-position: center;
+    object-fit: contain;
+    height: 500px;
+  }
+
+  .slider-item:nth-child(4) img {
+    object-position: center;
+    object-fit: contain;
+    height: 500px;
+  }
+
+  .slider-item:nth-child(5) img {
+    object-position: top;
+    object-fit: cover;
+  }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    display: flex;
+    gap: 0.5rem;
+    background: none;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+/* ---------- MOBILE (≤ 480px) ---------- */
+@media (max-width: 480px) {
+  .image-slider-container {
+    height: 300px;
+  }
+
+  .slider-item img {
+    height: 300px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .slider-item:nth-child(3) img {
+    object-position: center;
+    object-fit: contain;
+    height: 350px;
+  }
+
+  .slider-item:nth-child(4) img {
+    object-position: center;
+    object-fit: contain;
+    height: 350px;
+  }
+
+  .slider-item:nth-child(5) img {
+    object-position: top;
+    object-fit: contain;
+  }
+
+  .slider-dots {
+    bottom: 10px;
+    gap: 0.4rem;
+  }
+
+  .slider-dots {
+    bottom: 65px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
