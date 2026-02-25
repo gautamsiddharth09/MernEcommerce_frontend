@@ -49,6 +49,8 @@ export const login = createAsyncThunk(
     }
   },
 );
+
+
 // load user
 export const loadUser = createAsyncThunk(
   "user/loadUser",
@@ -67,6 +69,8 @@ export const loadUser = createAsyncThunk(
     }
   }
 );
+
+
 // logout
 export const logout = createAsyncThunk(
   "user/logout",
