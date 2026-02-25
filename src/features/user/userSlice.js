@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL 
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Register API
 export const register = createAsyncThunk(
@@ -13,7 +13,11 @@ export const register = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       };
-      const { data } = await axios.post(`${API_URL}/api/v1/register`, userData, config);
+      const { data } = await axios.post(
+        `${API_URL}/api/v1/register`,
+        userData,
+        config,
+      );
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -50,26 +54,31 @@ export const login = createAsyncThunk(
   },
 );
 
-
 // load user
 export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token"); //  getting token
+      const token = localStorage.getItem("token"); // ✅ read token
+
       const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: {},
+        withCredentials: true, // needed if backend uses cookies
       };
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`; // ✅ send token
+      }
+
       const { data } = await axios.get(`${API_URL}/api/v1/profile`, config);
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to load user profile");
+      return rejectWithValue(
+        error.response?.data || { message: "Failed to load user profile" },
+      );
     }
-  }
+  },
 );
-
 
 // logout
 export const logout = createAsyncThunk(
@@ -96,7 +105,7 @@ export const updateProfile = createAsyncThunk(
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        withCredentials: true, 
+        withCredentials: true,
       };
 
       const { data } = await axios.put(
@@ -238,18 +247,21 @@ const userSlice = createSlice({
         ((state.loading = true), (state.error = null));
       })
       .addCase(login.fulfilled, (state, action) => {
-  state.loading = false;
-  state.error = null;
-  state.success = action.payload.success;
-  state.user = action.payload?.user || null;
-  state.isAuthenticated = Boolean(action.payload?.user);
+        state.loading = false;
+        state.error = null;
+        state.user = action.payload?.user || null;
+        state.isAuthenticated = Boolean(action.payload?.user);
 
-  localStorage.setItem("user", JSON.stringify(state.user));
-  localStorage.setItem("isAuthenticated", JSON.stringify(state.isAuthenticated));
+        // Store user info
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem(
+          "isAuthenticated",
+          JSON.stringify(state.isAuthenticated),
+        );
 
-  //  Storring token
-  localStorage.setItem("token", action.payload?.token); 
-})
+        // ✅ Store token so future requests can use it
+        localStorage.setItem("token", action.payload?.token);
+      })
       .addCase(login.rejected, (state, action) => {
         ((state.loading = false),
           (state.error =
