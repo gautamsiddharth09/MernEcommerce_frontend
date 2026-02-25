@@ -16,7 +16,7 @@ function MyOrders() {
   const dispatch = useDispatch();
 
   // Fetch orders once
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getAllMyOrders());
   }, [dispatch]);
 
