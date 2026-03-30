@@ -59,15 +59,15 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token"); // ✅ read token
+      const token = localStorage.getItem("token"); 
 
       const config = {
         headers: {},
-        withCredentials: true, // needed if backend uses cookies
+        withCredentials: true, 
       };
 
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // ✅ send token
+        config.headers.Authorization = `Bearer ${token}`;
       }
 
       const { data } = await axios.get(`${API_URL}/api/v1/profile`, config);
@@ -259,7 +259,7 @@ const userSlice = createSlice({
           JSON.stringify(state.isAuthenticated),
         );
 
-        // ✅ Store token so future requests can use it
+        // Store token so future requests can use it
         localStorage.setItem("token", action.payload?.token);
       })
       .addCase(login.rejected, (state, action) => {
