@@ -1,222 +1,274 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL
 
-//Fetch ALL Products
+const API_URL = import.meta.env.VITE_API_URL;
+
+// 🔹 Helper to get token config (REUSABLE)
+const getAuthConfig = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  };
+};
+
+// ====================== PRODUCTS ======================
+
+// Fetch ALL Products
 export const fetchAdminProducts = createAsyncThunk(
   "admin/fetchAdminProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/api/v1/admin/products`);
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/admin/products`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Error While Fetching the products",
+        error.response?.data || { message: "Error While Fetching Products" }
       );
     }
-  },
+  }
 );
 
-//Create Products
+// Create Product
 export const createProduct = createAsyncThunk(
   "admin/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-
       const { data } = await axios.post(
         `${API_URL}/api/v1/admin/product/create`,
         productData,
-        config,
+        {
+          ...getAuthConfig(),
+          headers: {
+            ...getAuthConfig().headers,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Product Creation Failed");
+      return rejectWithValue(
+        error.response?.data || { message: "Product Creation Failed" }
+      );
     }
-  },
+  }
 );
 
-//Update Product
+// Update Product
 export const updateProduct = createAsyncThunk(
   "admin/updateProduct",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-
       const { data } = await axios.put(
         `${API_URL}/api/v1/admin/products/${id}`,
         formData,
-        config,
+        {
+          ...getAuthConfig(),
+          headers: {
+            ...getAuthConfig().headers,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Product Update Failed");
+      return rejectWithValue(
+        error.response?.data || { message: "Product Update Failed" }
+      );
     }
-  },
+  }
 );
 
-//Delete Product
+// Delete Product
 export const deleteProduct = createAsyncThunk(
   "admin/deleteProduct",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         `${API_URL}/api/v1/admin/products/${productId}`,
+        getAuthConfig()
       );
       return { productId };
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Product Deletion Failed");
+      return rejectWithValue(
+        error.response?.data || { message: "Product Deletion Failed" }
+      );
     }
-  },
+  }
 );
 
-//Fetch All Users
+// ====================== USERS ======================
+
 export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/api/v1/admin/users`);
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/admin/users`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to fetch users");
+      return rejectWithValue(
+        error.response?.data || { message: "Failed to fetch users" }
+      );
     }
-  },
+  }
 );
 
-//Get single user
 export const getSingleUser = createAsyncThunk(
   "admin/getSingleUser",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/api/v1/admin/user/${id}`);
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/admin/user/${id}`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Failed to fetch Single user",
+        error.response?.data || { message: "Failed to fetch user" }
       );
     }
-  },
+  }
 );
 
-//Update User role
 export const updateUserRole = createAsyncThunk(
   "admin/updateUserRole",
   async ({ userId, role }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`${API_URL}/api/v1/admin/user/${userId}`, {
-        role,
-      });
+      const { data } = await axios.put(
+        `${API_URL}/api/v1/admin/user/${userId}`,
+        { role },
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Failed to update user role",
+        error.response?.data || { message: "Failed to update role" }
       );
     }
-  },
+  }
 );
 
-//Delete user profile
 export const deleteUser = createAsyncThunk(
   "admin/deleteUser",
   async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`${API_URL}/api/v1/admin/user/${userId}`);
+      const { data } = await axios.delete(
+        `${API_URL}/api/v1/admin/user/${userId}`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to Delete User");
+      return rejectWithValue(
+        error.response?.data || { message: "Failed to delete user" }
+      );
     }
-  },
+  }
 );
 
-//Fetch All Orders
+// ====================== ORDERS ======================
+
 export const fetchAllOrders = createAsyncThunk(
   "admin/fetchAllOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/api/v1/admin/orders`);
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/admin/orders`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to Fetch Orders");
+      return rejectWithValue(
+        error.response?.data || { message: "Failed to fetch orders" }
+      );
     }
-  },
+  }
 );
 
-//Delete Order
 export const deleteOrder = createAsyncThunk(
   "admin/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`${API_URL}/api/v1/admin/order/${id}`);
+      const { data } = await axios.delete(
+        `${API_URL}/api/v1/admin/order/${id}`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to Delete Order");
+      return rejectWithValue(
+        error.response?.data || { message: "Failed to delete order" }
+      );
     }
-  },
+  }
 );
 
-//Update Order Status
 export const updateOrderStatus = createAsyncThunk(
   "admin/updateOrderStatus",
   async ({ orderId, status }, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "content-Type": "application/json",
-        },
-      };
       const { data } = await axios.put(
         `${API_URL}/api/v1/admin/order/${orderId}`,
         { status },
-        config,
+        {
+          ...getAuthConfig(),
+          headers: {
+            ...getAuthConfig().headers,
+            "Content-Type": "application/json",
+          },
+        }
       );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Failed to Update Order status",
+        error.response?.data || { message: "Failed to update order" }
       );
     }
-  },
-); 
+  }
+);
 
-//Fetch All Reviews
+// ====================== REVIEWS ======================
+
 export const fetchProductReviews = createAsyncThunk(
   "admin/fetchProductReviews",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/api/v1/admin/reviews?id=${productId}`);
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/admin/reviews?id=${productId}`,
+        getAuthConfig()
+      );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Failed to Fetch Product Reviews",
+        error.response?.data || { message: "Failed to fetch reviews" }
       );
     }
-  },
+  }
 );
-//Delete Review
+
 export const deleteReview = createAsyncThunk(
   "admin/deleteReview",
   async ({ productId, reviewId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(
         `${API_URL}/api/v1/admin/reviews?productId=${productId}&id=${reviewId}`,
+        getAuthConfig()
       );
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Failed to Delete Product Review",
+        error.response?.data || { message: "Failed to delete review" }
       );
     }
-  },
+  }
 );
-
 const adminSlice = createSlice({
   name: "admin",
   initialState: {
