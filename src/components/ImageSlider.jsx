@@ -9,6 +9,7 @@ import hero_five from "../assets/hero_five.jpg";
 
 
 const ImageSlider = () => {
+  
   const images = [hero_one, hero_two, hero_three, hero_four,hero_five];
 
   const [currentIndex, setCurrentIndex] = useState(0);
