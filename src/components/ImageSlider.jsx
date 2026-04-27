@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ImageSlider.css";
 import hero_one from "../assets/hero_one.jpg";
 import hero_two from "../assets/hero_two.jpg";
-import hero_three from "../assets/hero_three.avif";
+// import hero_three from "../assets/hero_three.avif";
 import hero_four from "../assets/hero_four.jpg";
 import hero_five from "../assets/hero_five.jpg";
 
@@ -10,7 +10,7 @@ import hero_five from "../assets/hero_five.jpg";
 
 const ImageSlider = () => {
   
-  const images = [hero_one, hero_two, hero_three, hero_four,hero_five];
+  const images = [hero_one, hero_two, hero_four,hero_five];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
