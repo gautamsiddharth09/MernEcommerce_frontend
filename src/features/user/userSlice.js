@@ -101,49 +101,58 @@ export const updateProfile = createAsyncThunk(
   "user/updateProfile",
   async (userData, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token");
+
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`, 
         },
-        withCredentials: true,
       };
 
       const { data } = await axios.put(
         `${API_URL}/api/v1/profile/update`,
         userData,
-        config,
+        config
       );
 
       return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || {
-          message: "Profile update failed. Please try again later",
-        },
+          message: "Profile update failed",
+        }
       );
     }
-  },
+  }
 );
 // updatepassword
 export const updatePassword = createAsyncThunk(
   "user/updatePassword",
   async (formData, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token");
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ FIX
         },
       };
+
       const { data } = await axios.put(
         `${API_URL}/api/v1/password/update`,
         formData,
-        config,
+        config
       );
+
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Password update failed");
+      return rejectWithValue(
+        error.response?.data || "Password update failed"
+      );
     }
-  },
+  }
 );
 // forgot password
 export const forgotPassword = createAsyncThunk(

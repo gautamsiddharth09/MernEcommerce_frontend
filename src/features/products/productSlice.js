@@ -11,8 +11,6 @@ export const getProduct=createAsyncThunk('product/getProduct',async({keyword,pag
         if(keyword){
             link+=`&keyword=${keyword}`;
         }
-    //     const link=keyword?`/api/v1/products?keyword=${encodeURIComponent(keyword)}&page=${page}`:
-    // `/api/v1/products?page=${page}`;
         const {data}=await axios.get(link)
         return data
         
@@ -32,22 +30,34 @@ export const getProductDetails=createAsyncThunk('product/getProductDetails',asyn
     }
 })
 
-// Submit Review
-export const createReview=createAsyncThunk('product/createReview',async({rating,comment,productId},{rejectWithValue})=>{
-    try{
-        const config={
-            headers:{
-                'Content-Type':'application/json'
-            }
-        }
-        
-        const {data}=await axios.put(`${API_URL}/api/v1/review`,{rating,comment,productId},config);
-        return data;
-    }catch(error){
-        return rejectWithValue(error.response?.data || 'An error occurred')
-    }
-})
+// Submit/create Review
+export const createReview = createAsyncThunk(
+  'product/createReview',
+  async ({ rating, comment, productId }, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
 
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, 
+        },
+      };
+
+      const { data } = await axios.put(
+        `${API_URL}/api/v1/review`,
+        { rating, comment, productId },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || 'An error occurred'
+      );
+    }
+  }
+);
 
 const productSlice=createSlice({
 name:'product',
