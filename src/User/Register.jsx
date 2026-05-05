@@ -18,6 +18,14 @@ function Register() {
     const navigate=useNavigate();
     const registerDataChange=(e)=>{
         if(e.target.name==='avatar'){
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                toast.error('Please select a valid image file',{position:'top-center',autoClose:3000})
+                return;
+            }
+
             const reader=new FileReader();
             reader.onload=()=>{
                 if(reader.readyState===2){
@@ -25,7 +33,7 @@ function Register() {
                     setAvatar(reader.result)
                 }
             }
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
         }else{
             setUser({...user,[e.target.name]:e.target.value})            
         }
@@ -37,12 +45,12 @@ function Register() {
             toast.error('Please fill out all the required fields',{position:'top-center',autoClose:3000})
             return;
         }
-       const myForm= new FormData();
-       myForm.set('name',name)
-       myForm.set('email',email)
-       myForm.set('password',password)
-       myForm.set('avatar',avatar)
-       dispatch(register(myForm))
+        if(!avatar){
+            toast.error('Please select your avatar',{position:'top-center',autoClose:3000})
+            return;
+        }
+
+       dispatch(register({ name, email, password, avatar }))
     }
       useEffect(()=>{
         if(error){
@@ -72,10 +80,10 @@ function Register() {
                     <input type="password" placeholder='Password' name="password" value={password} onChange={registerDataChange}/>
                 </div>
                 <div className="input-group avatar-group">
-                    <input type="file" name="avatar" className='file-input' accept='image/'onChange={registerDataChange}/>
+                    <input type="file" name="avatar" className='file-input' accept='image/*' onChange={registerDataChange}/>
                     <img src={avatarPreview} alt="Avatar Preview" className='avatar'/>
                 </div>
-                <button className="authBtn">{loading?'Signing Up':'Sign Up'}</button>
+                <button className="authBtn" disabled={loading}>{loading?'Signing Up':'Sign Up'}</button>
                 <p className="form-links">
                 Already have an account?<Link to="/login">Sign in here</Link>
                 </p>
