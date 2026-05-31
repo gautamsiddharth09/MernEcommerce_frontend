@@ -1,3 +1,11 @@
+// my app login flow is:
+//1.User enters email/password (Login.jsx)
+//2.dispatch(login())
+//3.Redux stores user + sets isAuthenticated = true
+//4.Profile page reads user from Redux
+//5.Profile image + data should display
+
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -36,6 +44,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
+    console.log(`email ${email}, psssword ${password}`)
     try {
       const { data } = await axios.post(
         `${API_URL}/api/v1/login`,
@@ -57,19 +66,20 @@ export const login = createAsyncThunk(
   }
 );
 
-// load user based on cookie
+// load userProfile based on cookie
 export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
+      const response = await axios.get(
         `${API_URL}/api/v1/profile`,
         {
           withCredentials: true,
         }
       );
+      // console.log("loadUser response:", response);
 
-      return data;
+      return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || "Failed to load user"

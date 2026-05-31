@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// 🔹 Helper to get token config (REUSABLE)
+// Helper to get token config (REUSABLE)
 const getAuthConfig = () => {
   const token = localStorage.getItem("token");
 
@@ -15,7 +15,7 @@ const getAuthConfig = () => {
   };
 };
 
-// ====================== PRODUCTS ======================
+// PRODUCTS 
 
 // Fetch ALL Products
 export const fetchAdminProducts = createAsyncThunk(
@@ -103,7 +103,7 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-// ====================== USERS ======================
+// USERS 
 
 export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
@@ -174,7 +174,7 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-// ====================== ORDERS ======================
+//  ORDERS 
 
 export const fetchAllOrders = createAsyncThunk(
   "admin/fetchAllOrders",
@@ -234,7 +234,7 @@ export const updateOrderStatus = createAsyncThunk(
   }
 );
 
-// ====================== REVIEWS ======================
+//review
 
 export const fetchProductReviews = createAsyncThunk(
   "admin/fetchProductReviews",
@@ -286,7 +286,7 @@ const adminSlice = createSlice({
     order: {},
     reviews: [],
   },
-  reducers: {
+  reducers: {   
     removeErrors: (state) => {
       state.error = null;
     },

@@ -36,11 +36,9 @@ function App() {
   const {isAuthenticated,user}=useSelector(state=>state.user);
   const dispatch=useDispatch()
   
- useEffect(() => {
-  if (isAuthenticated) {
-    dispatch(loadUser());
-  }
-}, [dispatch, isAuthenticated]);
+useEffect(() => {
+  dispatch(loadUser());
+}, [dispatch]);
 
   return (
    <Router>
