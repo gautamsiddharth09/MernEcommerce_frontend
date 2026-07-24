@@ -5,13 +5,10 @@
 //4.Profile page reads user from Redux
 //5.Profile image + data should display
 
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-
 
 // register
 export const register = createAsyncThunk(
@@ -28,23 +25,21 @@ export const register = createAsyncThunk(
       const { data } = await axios.post(
         `${API_URL}/api/v1/register`,
         userData,
-        config
+        config,
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Registration failed"
-      );
+      return rejectWithValue(error.response?.data || "Registration failed");
     }
-  }
+  },
 );
 
 // login based on cookie
 export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
-    console.log(`email ${email}, psssword ${password}`)
+    console.log(`email ${email}, psssword ${password}`);
     try {
       const { data } = await axios.post(
         `${API_URL}/api/v1/login`,
@@ -54,16 +49,14 @@ export const login = createAsyncThunk(
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Login failed"
-      );
+      return rejectWithValue(error.response?.data || "Login failed");
     }
-  }
+  },
 );
 
 // load userProfile based on cookie
@@ -71,21 +64,17 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_URL}/api/v1/profile`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${API_URL}/api/v1/profile`, {
+        withCredentials: true,
+        timeout: 8000,
+      });
       // console.log("loadUser response:", response);
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to load user"
-      );
+      return rejectWithValue(error.response?.data || "Failed to load user");
     }
-  }
+  },
 );
 
 // logout
@@ -98,14 +87,14 @@ export const logout = createAsyncThunk(
         {},
         {
           withCredentials: true,
-        }
+        },
       );
 
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Logout failed");
     }
-  }
+  },
 );
 
 // update profile
@@ -121,16 +110,14 @@ export const updateProfile = createAsyncThunk(
             "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
-        }
+        },
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Profile update failed"
-      );
+      return rejectWithValue(error.response?.data || "Profile update failed");
     }
-  }
+  },
 );
 
 // update password
@@ -146,16 +133,14 @@ export const updatePassword = createAsyncThunk(
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Password update failed"
-      );
+      return rejectWithValue(error.response?.data || "Password update failed");
     }
-  }
+  },
 );
 
 // forgot password
@@ -170,16 +155,14 @@ export const forgotPassword = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Forgot password failed"
-      );
+      return rejectWithValue(error.response?.data || "Forgot password failed");
     }
-  }
+  },
 );
 
 // reset password
@@ -194,16 +177,14 @@ export const resetPassword = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Reset password failed"
-      );
+      return rejectWithValue(error.response?.data || "Reset password failed");
     }
-  }
+  },
 );
 
 // slice
@@ -245,7 +226,8 @@ const userSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Registration failed";
+        state.error =
+          action.payload?.message || action.payload || "Registration failed";
         state.user = null;
         state.isAuthenticated = false;
         state.success = false;
@@ -267,7 +249,8 @@ const userSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Login failed";
+        state.error =
+          action.payload?.message || action.payload || "Login failed";
         state.user = null;
         state.isAuthenticated = false;
         state.success = false;
@@ -292,7 +275,8 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = action.payload?.message || action.payload || "Session expired";
+        state.error =
+          action.payload?.message || action.payload || "Session expired";
       })
 
       // logout
@@ -309,7 +293,8 @@ const userSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Logout failed";
+        state.error =
+          action.payload?.message || action.payload || "Logout failed";
       })
 
       // update profile
@@ -323,11 +308,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload?.user || null;
         state.success = true;
-        state.message = action.payload?.message || "Profile updated successfully";
+        state.message =
+          action.payload?.message || "Profile updated successfully";
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Profile update failed";
+        state.error =
+          action.payload?.message || action.payload || "Profile update failed";
         state.success = false;
       })
 
@@ -341,11 +328,13 @@ const userSlice = createSlice({
       .addCase(updatePassword.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.message = action.payload?.message || "Password updated successfully";
+        state.message =
+          action.payload?.message || "Password updated successfully";
       })
       .addCase(updatePassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Password update failed";
+        state.error =
+          action.payload?.message || action.payload || "Password update failed";
         state.success = false;
       })
 
@@ -363,7 +352,8 @@ const userSlice = createSlice({
       })
       .addCase(forgotPassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Forgot password failed";
+        state.error =
+          action.payload?.message || action.payload || "Forgot password failed";
         state.success = false;
       })
 
@@ -379,11 +369,13 @@ const userSlice = createSlice({
         state.user = action.payload?.user || null;
         state.isAuthenticated = Boolean(action.payload?.user);
         state.success = true;
-        state.message = action.payload?.message || "Password reset successfully";
+        state.message =
+          action.payload?.message || "Password reset successfully";
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload || "Reset password failed";
+        state.error =
+          action.payload?.message || action.payload || "Reset password failed";
         state.success = false;
       });
   },
